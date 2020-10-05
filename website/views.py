@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def pagina_entradas(request):
+    return render(request, 'entrada.html')
