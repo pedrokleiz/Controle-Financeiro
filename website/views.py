@@ -1,16 +1,17 @@
 from django.shortcuts import render
 from .models import (Deposit, Withdrawal)
+from django.db.models import Sum
 
 
 def index_view(request):
-    return render(request, 'index.html')
+    total = Withdrawal.objects.aggregate(Sum('withdrawal_value'))
+    outra = Withdrawal.objects.aggregate(total_price=Sum('withdrawal_value'))
+    listIndexRender = {'depositValues': total,'outra':outra}
+    return render(request, 'index.html', listIndexRender)
 
 
 def deposit_view(request):
-    deposits_from_bd = Deposit.objects.all()
-    list_d = {'name': 'coco', 'lista': 'banana',
-              'comida': 'feijao', 'tudo': deposits_from_bd}
-    return render(request, 'deposit.html', list_d)
+    return render(request, 'deposit.html')
 
 
 def withdrawal_view(request):
