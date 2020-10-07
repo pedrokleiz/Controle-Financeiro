@@ -9,8 +9,8 @@ def index_view(request):
     sumWithdrawals = Withdrawal.objects.aggregate(
         sum_withdrawals=Sum('withdrawal_value'))
 
-    balance = sumDeposit["total_deposit"] - \
-        sumWithdrawal["total_withdrawal"]
+    balance = sumDeposits["sum_deposits"] - \
+        sumWithdrawals["sum_withdrawals"]
 
     dicIndexRender = {'sumDeposits': sumDeposits,
                       'sumWithdrawals': sumWithdrawals, 'balance': balance}
@@ -42,8 +42,8 @@ def statement_view(request):
         sum_deposits=Sum('deposit_value'))
     sumWithdrawals = Withdrawal.objects.aggregate(
         sum_withdrawals=Sum('withdrawal_value'))
-    balance = sumDeposit["total_deposit"] - \
-        sumWithdrawal["total_withdrawal"]
+    balance = sumDeposits["sum_deposits"] - \
+        sumWithdrawals["sum_withdrawals"]
     dicStatementRender = {'withdrawals': withdrawals, 'deposits': deposits,
                           'sumDeposits': sumDeposits, 'sumWithdrawals': sumWithdrawals, 'balance': balance}
     return render(request, 'statement.html')
