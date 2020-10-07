@@ -4,19 +4,46 @@ from django.db.models import Sum
 
 
 def index_view(request):
-    total = Withdrawal.objects.aggregate(Sum('withdrawal_value'))
-    outra = Withdrawal.objects.aggregate(total_price=Sum('withdrawal_value'))
-    listIndexRender = {'depositValues': total,'outra':outra}
-    return render(request, 'index.html', listIndexRender)
+    sumDeposits = Deposit.objects.aggregate(
+        sum_deposits=Sum('deposit_value'))
+    sumWithdrawals = Withdrawal.objects.aggregate(
+        sum_withdrawals=Sum('withdrawal_value'))
+
+    balance = sumDeposit["total_deposit"] - \
+        sumWithdrawal["total_withdrawal"]
+
+    dicIndexRender = {'sumDeposits': sumDeposits,
+                      'sumWithdrawals': sumWithdrawals, 'balance': balance}
+
+    return render(request, 'index.html', dicIndexRender)
 
 
 def deposit_view(request):
-    return render(request, 'deposit.html')
+    deposits = Deposit.objects.all()
+    sumDeposits = Deposit.objects.aggregate(
+        total_deposits=Sum('deposit_value'))
+    dicDepositRender = {'sumDeposit': sumDeposit, 'deposits': deposits}
+    return render(request, 'deposit.html', dicIndexRender)
 
 
 def withdrawal_view(request):
-    return render(request, 'withdrawal.html')
+    withdrawals = Withdrawal.objects.all()
+    sumWithdrawals = Withdrawal.objects.aggregate(
+        total_withdrawal=Sum('withdrawal_value'))
+    dicWithdrawalRender = {
+        'sumWithdrawals': sumWithdrawals, 'withdrawals': withdrawals}
+    return render(request, 'withdrawal.html', dicIndexRender)
 
 
 def statement_view(request):
+    withdrawals = Withdrawal.objects.all()
+    deposits = Deposit.objects.all()
+    sumDeposits = Deposit.objects.aggregate(
+        sum_deposits=Sum('deposit_value'))
+    sumWithdrawals = Withdrawal.objects.aggregate(
+        sum_withdrawals=Sum('withdrawal_value'))
+    balance = sumDeposit["total_deposit"] - \
+        sumWithdrawal["total_withdrawal"]
+    dicStatementRender = {'withdrawals': withdrawals, 'deposits': deposits,
+                          'sumDeposits': sumDeposits, 'sumWithdrawals': sumWithdrawals, 'balance': balance}
     return render(request, 'statement.html')
