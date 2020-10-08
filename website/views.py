@@ -22,17 +22,25 @@ def deposit_view(request):
     deposits = Deposit.objects.all()
     sumDeposits = Deposit.objects.aggregate(
         total_deposits=Sum('deposit_value'))
-    dicDepositRender = {'sumDeposit': sumDeposit, 'deposits': deposits}
-    return render(request, 'deposit.html', dicIndexRender)
+    dicDepositRender = {'sumDeposits': sumDeposits, 'deposits': deposits}
+    return render(request, 'deposit.html', dicDepositRender)
+
+
+def deposit_value_view(request):
+    return render(request, 'depositValue.html')
 
 
 def withdrawal_view(request):
     withdrawals = Withdrawal.objects.all()
     sumWithdrawals = Withdrawal.objects.aggregate(
-        total_withdrawal=Sum('withdrawal_value'))
+        sum_withdrawal=Sum('withdrawal_value'))
     dicWithdrawalRender = {
         'sumWithdrawals': sumWithdrawals, 'withdrawals': withdrawals}
-    return render(request, 'withdrawal.html', dicIndexRender)
+    return render(request, 'withdrawal.html', dicWithdrawalRender)
+
+
+def withdrawal_value_view(request):
+    return render(request, 'withdrawalValue.html')
 
 
 def statement_view(request):
