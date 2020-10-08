@@ -1,6 +1,6 @@
 from django.urls import path, include
 from .views import (index_view, deposit_view, withdrawal_view,
-                    statement_view, deposit_value_view, withdrawal_value_view)
+                    statement_view, deposit_value_view, withdrawal_value_view, elements_view)
 
 urlpatterns = [
     path('index/', index_view, name='index'),
@@ -10,5 +10,6 @@ urlpatterns = [
          withdrawal_value_view, name='withdrawalValue'),
     path('index/withdrawal/', withdrawal_view, name='withdrawal'),
     path('index/statement/', statement_view, name='statement'),
+    path('index/elements', elements_view)
 
 ]

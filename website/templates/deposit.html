@@ -1,1 +1,38 @@
 {% load static %} {% include 'partials/headerBlack.html' %}
+<section id="main" class="container">
+  <section class="box">
+    <header>
+      <h2>Entradas</h2>
+      <p>Organizadas por data</p>
+      <p></p>
+    </header>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for deposit in deposits %}
+          <tr>
+            <td>{{deposit.deposit_date}}</td>
+            <td>{{deposit.deposit_name}}</td>
+            <td>{{deposit.deposit_value}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2"></td>
+            <td>{{ sumDeposits.sum_deposits|floatformat:2 }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+</section>
+{% include 'partials/footer.html' %}

@@ -2,7 +2,7 @@
 <!-- Banner -->
 <section id="banner">
   <h3>Saldo</h3>
-  <h2>{{ balance|stringformat:".2f" }}</h2>
+  <h2>{{ balance|floatformat:2 }}</h2>
   <ul class="actions special">
     <li><a href="{% url 'deposit' %}" class="button">Entradas</a></li>
     <li><a href="{% url 'withdrawal' %}" class="button">Saidas</a></li>

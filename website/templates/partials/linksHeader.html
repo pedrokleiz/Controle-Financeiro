@@ -1,3 +1,5 @@
+{% load static %}
+
 <h1><a href="{% url 'index' %}  ">Controle Financeiro</a> Pedro Kleiz</h1>
 <nav id="nav">
   <ul>
@@ -23,4 +25,9 @@
       </ul>
     </li>
   </ul>
+  <img
+    src="{% static 'images/logo.png'  %}"
+    class="img-thumbnail"
+    alt="Responsive image"
+  />
 </nav>
