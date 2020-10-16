@@ -1,0 +1,30 @@
+{% load static %} {% include 'partials/headerBlack.html' %}
+<section id="main" class="container">
+    <section class="box">
+        <header>
+            <h2>Retirar valor</h2>
+            <p>*Todos os campos são necessários</p>
+        </header>
+        <div class="row">
+            <div class="col-12">
+                <!-- Form -->
+                <form method="post" action="#">
+                    <div class="row gtr-uniform gtr-50">
+                        <div class="col-6 col-12-mobilep">
+                            <input type="text" name="description" id="description" value="" placeholder="Descrição" />
+                        </div>
+                        <div class="col-6 col-12-mobilep">
+                            <input type="email" name="value" id="value" value="" placeholder="Valor" />
+                        </div>
+
+                        <div class="col-12">
+                            <ul class="actions" style="float: right;">
+                                <li><input type="reset" value="Resetar" class="alt" /></li>
+                                <li><input type="submit" value="Enviar" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </section>
+    {% include 'partials/footer.html'%}

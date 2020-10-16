@@ -6,9 +6,9 @@ urlpatterns = [
     path('index/', index_view, name='index'),
     path('index/deposit/', deposit_view, name='deposit'),
     path('index/deposit/depositvalue', deposit_value_view, name='depositValue'),
+    path('index/withdrawal/', withdrawal_view, name='withdrawal'),
     path('index/withdrawal/withdrawalvalue',
          withdrawal_value_view, name='withdrawalValue'),
-    path('index/withdrawal/', withdrawal_view, name='withdrawal'),
     path('index/statement/', statement_view, name='statement'),
     path('index/elements', elements_view)
 
