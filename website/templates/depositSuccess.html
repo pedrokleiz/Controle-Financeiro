@@ -1,0 +1,20 @@
+{% load static %} {% include 'partials/headerBlack.html' %}
+<section id="main" class="container">
+    <section class="box">
+        <header>
+            <h2>Valor inserido com Sucesso!</h2>
+        </header>
+        <div class="row">
+            <div class="col-12">
+                <div class="col-6 col-12-mobilep">
+                   
+                    <a href="{% url 'depositValue' %}">Inserir novo valor</a>
+                <div class="col-6 col-12-mobilep">
+                   
+                    <a href="{% url 'deposit' %}">Entradas</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    {% include 'partials/footer.html'%}

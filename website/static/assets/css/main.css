@@ -4011,3 +4011,35 @@ body.landing #main {
     padding: 2.5em 1em 3em 1em;
   }
 }
+
+.value-box {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  background-color: #f8f8f8;
+  border-radius: 6px;
+  border: solid 1px #e5e5e5;
+  color: inherit;
+  display: block;
+  outline: 0;
+  padding: 0.65em;
+  text-decoration: none;
+  width: 100%;
+}
+noStyle:link {
+  background-color: yellow;
+}
+
+noStyle:visited {
+  background-color: cyan;
+}
+
+noStyle:hover {
+  border: #7fcdb8;
+  border-radius: 2em;
+}
+
+noStyle:active {
+  background-color: hotpink;
+}

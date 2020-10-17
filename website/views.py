@@ -59,3 +59,9 @@ def statement_view(request):
 
 def elements_view(request):
     return render(request, 'elements.html')
+
+
+def deposit_success_view(request):
+    Deposit.objects.create(
+        deposit_name=request.POST['description'], deposit_value=request.POST['value'])
+    return render(request, 'depositSuccess.html')

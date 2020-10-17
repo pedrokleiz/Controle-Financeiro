@@ -1,15 +1,17 @@
 from django.urls import path, include
 from .views import (index_view, deposit_view, withdrawal_view,
-                    statement_view, deposit_value_view, withdrawal_value_view, elements_view)
+                    statement_view, deposit_value_view, withdrawal_value_view, elements_view, deposit_success_view)
 
 urlpatterns = [
-    path('index/', index_view, name='index'),
-    path('index/deposit/', deposit_view, name='deposit'),
-    path('index/deposit/depositvalue', deposit_value_view, name='depositValue'),
-    path('index/withdrawal/', withdrawal_view, name='withdrawal'),
-    path('index/withdrawal/withdrawalvalue',
+    path('', index_view, name='index'),
+    path('deposit/', deposit_view, name='deposit'),
+    path('deposit/depositvalue', deposit_value_view, name='depositValue'),
+    path('withdrawal/', withdrawal_view, name='withdrawal'),
+    path('withdrawal/withdrawalvalue',
          withdrawal_value_view, name='withdrawalValue'),
-    path('index/statement/', statement_view, name='statement'),
-    path('index/elements', elements_view)
+    path('statement/', statement_view, name='statement'),
+    path('elements', elements_view),
+    path('deposit/depositvalue/depositSuccess.html',
+         deposit_success_view, name='depositSuccess')
 
 ]

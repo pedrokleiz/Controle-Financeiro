@@ -2,19 +2,21 @@
 <section id="main" class="container">
   <section class="box">
     <header>
+        <a href="{% url 'deposit' %}">&larr; Entradas</a>
       <h2>Inserir valor</h2>
       <p>*Todos os campos são necessários</p>
     </header>
     <div class="row">
         <div class="col-12">
             <!-- Form -->
-                <form method="post" action="#">
+                <form method="post" action="{% url 'depositSuccess'  %}">
+                    {% csrf_token %}
                     <div class="row gtr-uniform gtr-50">
                         <div class="col-6 col-12-mobilep">
-                            <input type="text" name="description" id="description" value="" placeholder="Descrição" />
+                            <input type="text" required name="description" id="description" value="" placeholder="Descrição" />
                         </div>
                         <div class="col-6 col-12-mobilep">
-                            <input type="email" name="value" id="value" value="" placeholder="Valor" />
+                            <input class="value-box" required name="value" type="number" step=".01" id="value" placeholder="Valor" />
                         </div>
 
                         <div class="col-12">
