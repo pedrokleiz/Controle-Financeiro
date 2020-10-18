@@ -1,11 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Extrato</h1>
-  </body>
-</html>
+{% load static %} {% include 'partials/headerBlack.html' %}
+<section id="main" class="container">
+  <section class="box">
+    <header>
+      <div class="row gtr-uniform gtr-50">
+        <div class="col-6 col-12-mobilep">
+          <h2 class="col-6">Extrato</h2>
+        </div>
+      </div>
+    </header>
+    <br>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for deposit in deposits %}
+          <tr>
+            <td>{{deposit.deposit_date}}</td>
+            <td>{{deposit.deposit_name}}</td>
+            <td>{{deposit.deposit_value}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total</td>
+            <td colspan="1"></td>
+            <td>{{ sumDeposits.sum_deposits|floatformat:2 }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+</section>
+{% include 'partials/footer.html'%}
