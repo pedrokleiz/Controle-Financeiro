@@ -65,3 +65,9 @@ def deposit_success_view(request):
     Deposit.objects.create(
         deposit_name=request.POST['description'], deposit_value=request.POST['value'])
     return render(request, 'depositSuccess.html')
+
+
+def withdrawal_success_view(request):
+    Withdrawal.objects.create(
+        withdrawal_name=request.POST['description'], withdrawal_value=request.POST['value'])
+    return render(request, 'withdrawalSuccess.html')
