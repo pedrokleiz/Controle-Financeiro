@@ -5,6 +5,7 @@ from website.functions import *
 from decimal import Decimal
 import datetime
 from itertools import chain
+from django.utils import timezone
 
 
 def index_view(request):
@@ -24,14 +25,22 @@ def index_view(request):
 
 def deposit_view(request):
     deposits = Deposit.objects.all().order_by("deposit_date").reverse()
-    sumDeposits = Deposit.objects.aggregate(
-        sum_deposits=Sum('deposit_value'))
+    sumDeposits = deposits.aggregate(sum_deposits=Sum('deposit_value'))
     dicDepositRender = {'sumDeposits': sumDeposits, 'deposits': deposits}
     return render(request, 'deposit.html', dicDepositRender)
 
 
 def deposit_result_view(request):
-    return render(request, 'deposit.html')
+    date1 = request.POST['dateStart']
+    date2 = request.POST['dateEnd']
+    deposits = Deposit.objects.filter(
+        deposit_date__range=[date1, date2 + " 23:59:59"]).order_by("deposit_date").reverse()
+    sumDeposits = deposits.aggregate(
+        sum_deposits=Sum('deposit_value'))
+    print(sumDeposits)
+    dicDepositRender = {'sumDeposits': sumDeposits, 'deposits': deposits}
+    print(deposits)
+    return render(request, 'deposit.html', dicDepositRender)
 
 
 def deposit_value_view(request):
@@ -41,6 +50,18 @@ def deposit_value_view(request):
 def withdrawal_view(request):
     withdrawals = Withdrawal.objects.all().order_by("withdrawal_date").reverse()
     sumWithdrawals = Withdrawal.objects.aggregate(
+        sum_withdrawals=Sum('withdrawal_value'))
+    dicWithdrawalRender = {
+        'sumWithdrawals': sumWithdrawals, 'withdrawals': withdrawals}
+    return render(request, 'withdrawal.html', dicWithdrawalRender)
+
+
+def withdrawal_result_view(request):
+    date1 = request.POST['dateStart']
+    date2 = request.POST['dateEnd']
+    withdrawals = Withdrawal.objects.filter(
+        withdrawal_date__range=[date1, date2 + " 23:59:59"]).order_by("withdrawal_date").reverse()
+    sumWithdrawals = withdrawals.aggregate(
         sum_withdrawals=Sum('withdrawal_value'))
     dicWithdrawalRender = {
         'sumWithdrawals': sumWithdrawals, 'withdrawals': withdrawals}
@@ -106,7 +127,3 @@ def statement_result_view(request):
     dicStatementRender = {
         'listOfDictOrdered': listOfDictsInRange, 'balance': balance}
     return render(request, 'statement.html', dicStatementRender)
-
-
-def withdrawal_result_view(request):
-    return render(request, 'withdrawal.html')
