@@ -134,16 +134,20 @@ def statement_result_view(request):
     date1 = request.POST['dateStart']
     date2 = request.POST['dateEnd']
 
-    dateConverted1 = convertDate1(date1)
-    dateConverted2 = convertDate2(date2)
-    listOfDictsInRange = compareDates(
-        listOfDictOrdered, dateConverted1, dateConverted2)
-    balance = totalStatement(listOfDictsInRange)
+    if(len(date1) > 0 and len(date2) > 0):
+        dateConverted1 = convertDate1(date1)
+        dateConverted2 = convertDate2(date2)
+        listOfDictsInRange = compareDates(
+            listOfDictOrdered, dateConverted1, dateConverted2)
+        balance = totalStatement(listOfDictsInRange)
 
-    if (balance == 0):
-        balance = "Nenhum resultado encontrado, tente outra data"
-        if (dateConverted1 > dateConverted2):
-            balance = "A data de início precisa ser igual ou menor a data final"
+        if (balance == 0):
+            balance = "Nenhum resultado encontrado, tente outra data"
+            if (dateConverted1 > dateConverted2):
+                balance = "A data de início precisa ser igual ou menor a data final"
+    else:
+        listOfDictsInRange = ""
+        balance = 'É necessário informar os dois campos de data'
     dicStatementRender = {
         'listOfDictOrdered': listOfDictsInRange, 'balance': balance}
     return render(request, 'statement.html', dicStatementRender)
