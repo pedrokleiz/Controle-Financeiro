@@ -37,9 +37,13 @@ def deposit_result_view(request):
         deposit_date__range=[date1, date2 + " 23:59:59"]).order_by("deposit_date").reverse()
     sumDeposits = deposits.aggregate(
         sum_deposits=Sum('deposit_value'))
-    print(sumDeposits)
+
+    if (sumDeposits['sum_deposits'] == None):
+        sumDeposits['sum_deposits'] = "Nenhum resultado encontrado, tente outra data"
+    if (convertDate1(date1) > convertDate1(date2)):
+        sumDeposits['sum_deposits'] = "A data de início precisa ser igual ou menor a data final"
+
     dicDepositRender = {'sumDeposits': sumDeposits, 'deposits': deposits}
-    print(deposits)
     return render(request, 'deposit.html', dicDepositRender)
 
 

@@ -56,7 +56,11 @@
           <tr>
             <td>Total</td>
             <td colspan="1"></td>
-            <td>{{ sumDeposits.sum_deposits|floatformat:2 }}</td>
+            {% if sumDeposits.sum_deposits > 0 %}
+              <td>{{ sumDeposits.sum_deposits|floatformat:2 }}</td>
+            {% else %}
+              <td>{{ sumDeposits.sum_deposits}}</td>
+            {% endif %}
           </tr>
         </tfoot>
       </table>
