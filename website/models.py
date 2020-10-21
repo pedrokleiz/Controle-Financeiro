@@ -3,7 +3,6 @@ import datetime
 
 
 class Deposit(models.Model):
-    from django.utils import timezone
     deposit_name = models.CharField(max_length=50)
     deposit_value = models.DecimalField(
         blank=False, null=False, max_digits=20, decimal_places=2)

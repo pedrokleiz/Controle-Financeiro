@@ -2,13 +2,30 @@
 <section id="main" class="container">
   <section class="box">
     <header>
-      <div class="row gtr-uniform gtr-50">
         <div class="col-6 col-12-mobilep">
           <h2 class="col-6">Extrato</h2>
         </div>
-      </div>
+        <form method="post" action="{% url 'statementResult' %}">
+          {% csrf_token %}
+          <div class="row gtr-uniform gtr-50">
+
+            <div  style="float:left">
+              <input type="date" class="value-box" name="dateStart" value="">
+            </div>
+
+            <div style="float:left">
+              <input type="date" class="value-box" name="dateEnd" value="">
+              
+              <div style="float:right">
+                <input type="submit" style="float: right;" class="button alt small" value="selecionar intervalo">
+              </div>
+            </div>
+            
+          </div>
+        </form>
     </header>
     <br>
+    
 
     <div class="table-wrapper">
       <table>
@@ -20,11 +37,11 @@
           </tr>
         </thead>
         <tbody>
-          {% for deposit in deposits %}
+          {% for dict in listOfDictOrdered %}
           <tr>
-            <td>{{deposit.deposit_date}}</td>
-            <td>{{deposit.deposit_name}}</td>
-            <td>{{deposit.deposit_value}}</td>
+            <td>{{ dict.date }}</td>
+            <td>{{ dict.name }}</td>
+            <td>{{ dict.value }}</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -32,7 +49,7 @@
           <tr>
             <td>Total</td>
             <td colspan="1"></td>
-            <td>{{ sumDeposits.sum_deposits|floatformat:2 }}</td>
+            <td>{{ balance }}</td>
           </tr>
         </tfoot>
       </table>
