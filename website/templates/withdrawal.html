@@ -1,16 +1,37 @@
 {% load static %} {% include 'partials/headerBlack.html' %}
 <section id="main" class="container">
   <section class="box">
+
     <header>
-      <div class="row gtr-uniform gtr-50">
-        <div class="col-6 col-12-mobilep">
-          <h2 class="col-6">Saídas</h2>
-        </div>
-        <div class="col-6 col-12-mobilep ">
-          <a href="{% url 'withdrawalValue' %}" style="float: right;" class="button alt">Retirar Valor</a>
-        </div>
-  
+      <div class="gtr-uniform gtr-50 col-12">
+        <h2>Saídas</h2>
       </div>
+    
+      <div class="col-12">
+        <form method="post" style="margin-top:3ch" action="{% url 'withdrawalResult' %}">
+          {% csrf_token %}
+          <div class="row " class="col-12-mobilep col-12-mobile gtr-50 gtr-uniform">
+    
+            <div class="col-3 col-12-mobilep col-12-mobile ">
+              <input type="date" class="value-box" name="dateStart" value="">
+            </div>
+    
+            <div class="col-3 col-12-mobilep col-12-mobile ">
+              <input type="date" class="value-box" name="dateEnd" value="">
+            </div>
+    
+            <div class="col-3 col-12-mobilep col-12-mobile col-6-narrower">
+              <input type="submit" class="button alt" value="selecionar intervalo">
+            </div>
+    
+            <div class="col-3 col-12-mobilep col-8-mobile col-6-narrower">
+              <a href="{% url 'withdrawalValue' %}" id="insertButton" class="button alt col-6">Retirar Valor</a>
+            </div>
+    
+          </div>
+        </form>
+      </div>
+    
     </header>
     <br>
 

@@ -1,28 +1,33 @@
 {% load static %} {% include 'partials/headerBlack.html' %}
 <section id="main" class="container">
   <section class="box">
-    <header>
-        <div class="col-6 col-12-mobilep">
-          <h2 class="col-6">Extrato</h2>
-        </div>
-        <form method="post" action="{% url 'statementResult' %}">
-          {% csrf_token %}
-          <div class="row gtr-uniform gtr-50">
 
-            <div  style="float:left">
+    <header>
+      <div class="gtr-uniform gtr-50 col-12">
+        <h2>Extrato</h2>
+      </div>
+    
+      <div class="col-12">
+        <form method="post" style="margin-top:3ch" action="{% url 'statementResult' %}">
+          {% csrf_token %}
+          <div class="row " class="col-12-mobilep col-12-mobile gtr-50 gtr-uniform">
+    
+            <div class="col-3 col-12-mobilep col-12-mobile ">
               <input type="date" class="value-box" name="dateStart" value="">
             </div>
-
-            <div style="float:left">
+    
+            <div class="col-3 col-12-mobilep col-12-mobile ">
               <input type="date" class="value-box" name="dateEnd" value="">
-              
-              <div style="float:right">
-                <input type="submit" style="float: right;" class="button alt small" value="selecionar intervalo">
-              </div>
             </div>
-            
+    
+            <div class="col-3 col-12-mobilep col-12-mobile col-6-narrower">
+              <input type="submit" class="button alt" value="selecionar intervalo">
+            </div>
+    
           </div>
         </form>
+      </div>
+    
     </header>
     <br>
     
