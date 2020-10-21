@@ -33,16 +33,21 @@ def deposit_view(request):
 def deposit_result_view(request):
     date1 = request.POST['dateStart']
     date2 = request.POST['dateEnd']
-    deposits = Deposit.objects.filter(
-        deposit_date__range=[date1, date2 + " 23:59:59"]).order_by("deposit_date").reverse()
-    sumDeposits = deposits.aggregate(
-        sum_deposits=Sum('deposit_value'))
 
-    if (sumDeposits['sum_deposits'] == None):
-        sumDeposits['sum_deposits'] = "Nenhum resultado encontrado, tente outra data"
-    if (convertDate1(date1) > convertDate1(date2)):
-        sumDeposits['sum_deposits'] = "A data de início precisa ser igual ou menor a data final"
+    if(len(date1) > 0 and len(date2) > 0):
+        deposits = Deposit.objects.filter(
+            deposit_date__range=[date1, date2 + " 23:59:59"]).order_by("deposit_date").reverse()
+        sumDeposits = deposits.aggregate(
+            sum_deposits=Sum('deposit_value'))
 
+        if (sumDeposits['sum_deposits'] == None):
+            sumDeposits['sum_deposits'] = "Nenhum resultado encontrado, tente outra data"
+        if (convertDate1(date1) > convertDate1(date2)):
+            sumDeposits['sum_deposits'] = "A data de início precisa ser igual ou menor a data final"
+    else:
+        deposits = ""
+        sumDeposits = {
+            'sum_deposits': 'É necessário informar os dois campos de data'}
     dicDepositRender = {'sumDeposits': sumDeposits, 'deposits': deposits}
     return render(request, 'deposit.html', dicDepositRender)
 
@@ -63,16 +68,21 @@ def withdrawal_view(request):
 def withdrawal_result_view(request):
     date1 = request.POST['dateStart']
     date2 = request.POST['dateEnd']
-    withdrawals = Withdrawal.objects.filter(
-        withdrawal_date__range=[date1, date2 + " 23:59:59"]).order_by("withdrawal_date").reverse()
-    sumWithdrawals = withdrawals.aggregate(
-        sum_withdrawals=Sum('withdrawal_value'))
 
-    if (sumWithdrawals['sum_withdrawals'] == None):
-        sumWithdrawals['sum_withdrawals'] = "Nenhum resultado encontrado, tente outra data"
-    if (convertDate1(date1) > convertDate1(date2)):
-        sumWithdrawals['sum_withdrawals'] = "A data de início precisa ser igual ou menor a data final"
+    if(len(date1) > 0 and len(date2) > 0):
+        withdrawals = Withdrawal.objects.filter(
+            withdrawal_date__range=[date1, date2 + " 23:59:59"]).order_by("withdrawal_date").reverse()
+        sumWithdrawals = withdrawals.aggregate(
+            sum_withdrawals=Sum('withdrawal_value'))
 
+        if (sumWithdrawals['sum_withdrawals'] == None):
+            sumWithdrawals['sum_withdrawals'] = "Nenhum resultado encontrado, tente outra data"
+        if (convertDate1(date1) > convertDate1(date2)):
+            sumWithdrawals['sum_withdrawals'] = "A data de início precisa ser igual ou menor a data final"
+    else:
+        withdrawals = ""
+        sumWithdrawals = {
+            'sum_withdrawals': 'É necessário informar os dois campos de data'}
     dicWithdrawalRender = {
         'sumWithdrawals': sumWithdrawals, 'withdrawals': withdrawals}
     return render(request, 'withdrawal.html', dicWithdrawalRender)
