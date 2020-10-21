@@ -57,7 +57,11 @@
           <tr>
             <td>Total</td>
             <td colspan="1"></td>
+            {% if sumWithdrawals.sum_withdrawals > 0 %}
             <td>{{ sumWithdrawals.sum_withdrawals|floatformat:2 }}</td>
+            {% else %}
+            <td>{{ sumWithdrawals.sum_withdrawals}}</td>
+            {% endif %}
           </tr>
         </tfoot>
       </table>

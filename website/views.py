@@ -67,6 +67,12 @@ def withdrawal_result_view(request):
         withdrawal_date__range=[date1, date2 + " 23:59:59"]).order_by("withdrawal_date").reverse()
     sumWithdrawals = withdrawals.aggregate(
         sum_withdrawals=Sum('withdrawal_value'))
+
+    if (sumWithdrawals['sum_withdrawals'] == None):
+        sumWithdrawals['sum_withdrawals'] = "Nenhum resultado encontrado, tente outra data"
+    if (convertDate1(date1) > convertDate1(date2)):
+        sumWithdrawals['sum_withdrawals'] = "A data de início precisa ser igual ou menor a data final"
+
     dicWithdrawalRender = {
         'sumWithdrawals': sumWithdrawals, 'withdrawals': withdrawals}
     return render(request, 'withdrawal.html', dicWithdrawalRender)
