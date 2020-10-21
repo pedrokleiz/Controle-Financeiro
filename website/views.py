@@ -70,7 +70,7 @@ def statement_view(request):
 
     listOfDictUnordered = list(chain(withdrawalsValue, depositsValue))
 
-    listOfDictOrdered = makeStatement(listOfDictUnordered)
+    listOfDictOrdered = orderListOfDicts(listOfDictUnordered)
 
     balance = totalStatement(listOfDictOrdered)
 
@@ -80,4 +80,22 @@ def statement_view(request):
 
 
 def statement_result_view(request):
-    return render(request, 'statement.html')
+    withdrawalsValue = Withdrawal.objects.values()
+    depositsValue = Deposit.objects.values()
+
+    listOfDictUnordered = list(chain(withdrawalsValue, depositsValue))
+    listOfDictOrdered = orderListOfDicts(listOfDictUnordered)
+
+    date1 = request.POST['dateStart']
+    date2 = request.POST['dateEnd']
+
+    dateConverted1 = convertDate1(date1)
+    dateConverted2 = convertDate2(date2)
+    listOfDictsInRange = compareDates(
+        listOfDictOrdered, dateConverted1, dateConverted2)
+    balance = totalStatement(listOfDictsInRange)
+    if (balance == 0):
+        balance = "Nenhum resultado encontrado, tente outra data"
+    dicStatementRender = {
+        'listOfDictOrdered': listOfDictsInRange, 'balance': balance}
+    return render(request, 'statement.html', dicStatementRender)
