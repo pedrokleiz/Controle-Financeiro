@@ -94,8 +94,11 @@ def statement_result_view(request):
     listOfDictsInRange = compareDates(
         listOfDictOrdered, dateConverted1, dateConverted2)
     balance = totalStatement(listOfDictsInRange)
+
     if (balance == 0):
         balance = "Nenhum resultado encontrado, tente outra data"
+        if (dateConverted1 > dateConverted2):
+            balance = "A data de início precisa ser igual ou menor a data final"
     dicStatementRender = {
         'listOfDictOrdered': listOfDictsInRange, 'balance': balance}
     return render(request, 'statement.html', dicStatementRender)
