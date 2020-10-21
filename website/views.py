@@ -102,3 +102,11 @@ def statement_result_view(request):
     dicStatementRender = {
         'listOfDictOrdered': listOfDictsInRange, 'balance': balance}
     return render(request, 'statement.html', dicStatementRender)
+
+
+def deposit_result_view(request):
+    return render(request, 'deposit.html')
+
+
+def withdrawal_result_view(request):
+    return render(request, 'withdrawal.html')

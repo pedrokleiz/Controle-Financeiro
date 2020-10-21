@@ -2,15 +2,35 @@
 <section id="main" class="container">
   <section class="box">
     <header>
-    <div class="row gtr-uniform gtr-50">
-      <div class="col-6 col-12-mobilep">
-          <h2 class="col-6">Entradas</h2>
-      </div>
-      <div class="col-6 col-12-mobilep ">
-        <a href="{% url 'depositValue' %}"  style="float: right;" class="button alt">Inserir Valor</a>
+      <div class="gtr-uniform gtr-50 col-12">
+        <h2>Entradas</h2>
       </div>
 
-    </div>
+      <div class="col-12">
+        <form method="post" style="margin-top:3ch" action="{% url 'depositResult' %}">
+          {% csrf_token %}
+          <div class="row " class="col-12-mobilep col-12-mobile gtr-50 gtr-uniform">
+        
+            <div class="col-3 col-12-mobilep col-12-mobile ">
+              <input type="date" class="value-box" name="dateStart" value="">
+            </div>
+
+            <div class="col-3 col-12-mobilep col-12-mobile ">
+              <input type="date" class="value-box" name="dateEnd" value="">
+            </div>
+        
+            <div class="col-3 col-12-mobilep col-12-mobile col-6-narrower">
+              <input type="submit" class="button alt" value="selecionar intervalo">
+            </div>
+
+            <div class="col-3 col-12-mobilep col-8-mobile col-6-narrower">
+              <a href="{% url 'depositValue' %}" id="insertButton" class="button alt col-6">Inserir Valor</a>
+            </div>
+        
+          </div>
+        </form>
+      </div>
+
     </header>
     <br>
 
