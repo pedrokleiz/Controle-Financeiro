@@ -56,3 +56,29 @@ def totalStatement(listOfDict):
         if(dicts['value'] < 0):
             totalN = totalN + dicts['value']
     return totalP+totalN
+
+
+def convertDate(dateNotConverted):
+    #datetime.datetime(2020, 10, 7, 18, 6, 2, 664283)
+    # October 20, 2020 - 21:38:12
+
+    listOfDates = re.split("( )", dateNotConverted)
+    months = {	'January': 1,
+               'February': 2,
+               'March': 3,
+               'April': 4,
+               'May': 5,
+               'June': 6,
+               'July': 7,
+               'August': 8,
+               'September': 9,
+               'October': 10,
+               'November': 11,
+               'December': 12}
+
+    year = int(listOfDates[4])
+    month = months[(listOfDates[0])]
+    day = int(listOfDates[2][:-1])
+
+    dateConverted = datetime.datetime(year, month, day)
+    return(dateConverted)
