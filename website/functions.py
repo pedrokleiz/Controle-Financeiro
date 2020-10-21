@@ -1,9 +1,10 @@
 from decimal import Decimal
 import datetime
+import re
 # auxiliar methods for views.py
 
 
-def makeStatement(listOfDict):
+def orderListOfDicts(listOfDict):
     for dicts in listOfDict:
         for valuesOfDicts in dicts.copy():
             if(valuesOfDicts == 'withdrawal_name'):
@@ -34,9 +35,37 @@ def makeStatement(listOfDict):
                 dicts['date'] = dicts['deposit_date']
                 del dicts['deposit_date']
 
-    newList = sorted(listOfDict, key=lambda k: k['date'])
+    newList = sorted(listOfDict, key=lambda k: k['date'], reverse=True)
 
     return newList
+
+
+def convertDate1(dateNotConverted):
+    # datetime.datetime(2020, 10, 7, 18, 6, 2, 664283) <- we want
+    # October 20, 2020 - 21:38:12 <- we have
+
+    listOfDates = re.split("-", dateNotConverted)
+
+    year = int(listOfDates[0])
+    month = int(listOfDates[1])
+    day = int(listOfDates[2])
+
+    dateConverted = datetime.datetime(year, month, day)
+    return(dateConverted)
+
+
+def convertDate2(dateNotConverted):
+    # datetime.datetime(2020, 10, 7, 18, 6, 2, 664283) <- we want
+    # October 20, 2020 - 21:38:12 <- we have
+
+    listOfDates = re.split("-", dateNotConverted)
+
+    year = int(listOfDates[0])
+    month = int(listOfDates[1])
+    day = int(listOfDates[2])
+
+    dateConverted = datetime.datetime(year, month, day, 23, 59, 59)
+    return(dateConverted)
 
 
 def compareDates(listOfDict, date1, date2):
@@ -56,29 +85,3 @@ def totalStatement(listOfDict):
         if(dicts['value'] < 0):
             totalN = totalN + dicts['value']
     return totalP+totalN
-
-
-def convertDate(dateNotConverted):
-    #datetime.datetime(2020, 10, 7, 18, 6, 2, 664283)
-    # October 20, 2020 - 21:38:12
-
-    listOfDates = re.split("( )", dateNotConverted)
-    months = {	'January': 1,
-               'February': 2,
-               'March': 3,
-               'April': 4,
-               'May': 5,
-               'June': 6,
-               'July': 7,
-               'August': 8,
-               'September': 9,
-               'October': 10,
-               'November': 11,
-               'December': 12}
-
-    year = int(listOfDates[4])
-    month = months[(listOfDates[0])]
-    day = int(listOfDates[2][:-1])
-
-    dateConverted = datetime.datetime(year, month, day)
-    return(dateConverted)
