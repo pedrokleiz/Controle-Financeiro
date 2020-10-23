@@ -1,7 +1,7 @@
 from django.urls import path, include
 from .views import (index_view, deposit_view, withdrawal_view,
                     statement_view, deposit_value_view, withdrawal_value_view,
-                    elements_view, deposit_success_view, withdrawal_success_view,
+                    deposit_success_view, withdrawal_success_view,
                     statement_result_view, deposit_result_view, withdrawal_result_view)
 
 urlpatterns = [
@@ -13,7 +13,6 @@ urlpatterns = [
     path('withdrawal/result', withdrawal_result_view, name='withdrawalResult'),
     path('withdrawal/withdrawalvalue',
          withdrawal_value_view, name='withdrawalValue'),
-    path('elements', elements_view),
     path('deposit/depositvalue/depositsuccess',
          deposit_success_view, name='depositSuccess'),
     path('withdrawal/withdrawalvalue/withdrawalsuccess',
